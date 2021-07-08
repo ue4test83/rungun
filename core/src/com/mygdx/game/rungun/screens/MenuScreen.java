@@ -2,64 +2,34 @@ package com.mygdx.game.rungun.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.rungun.components.DefaultButton;
 
 public class MenuScreen extends MyScreen {
 
-    TextButton playButton;
-    TextButton quitButton;
-    Batch batch;
-    Stage stage;
+    DefaultButton playButton;
+    DefaultButton quitButton;
 
     public MenuScreen(final Game game) {
         super(game);
-        TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
-        tbs.font = new BitmapFont();
-        this.quitButton = new TextButton("Quit", tbs);
-        this.playButton = new TextButton("Play", tbs);
-        this.playButton.setPosition(Gdx.graphics.getWidth() / 2.0f - 50 , Gdx.graphics.getHeight() / 2.0f);
-        this.quitButton.setPosition(Gdx.graphics.getWidth() / 2.0f - 50 , Gdx.graphics.getHeight() / 2.0f - 50 );
-        this.quitButton.setDisabled(false);
-        this.quitButton.setHeight(50);
-        this.quitButton.setWidth(250);
-        this.quitButton.setColor(1,0,0,1);
-
-        this.playButton.setDisabled(false);
-        this.playButton.setHeight(50);
-        this.playButton.setWidth(250);
-        this.playButton.setColor(1,0,0,1);
-        this.batch = new SpriteBatch();
-        this.stage = new Stage();
+        this.quitButton = new DefaultButton("Quit", Color.GRAY);
+        this.playButton = new DefaultButton("Play", Color.LIME);
+        this.playButton.setPosition(playButton.horizontallyCentered(), playButton.verticallyCentered());
+        this.quitButton.setPosition(quitButton.horizontallyCentered(), quitButton.verticallyCentered() - 100 );
         this.stage.addActor(quitButton);
         this.stage.addActor(playButton);
-
-        playButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(game));
-            }
+        this.playButton.onClick((event, actor) -> {
+            game.setScreen(new GameScreen(game));
+            return null;
         });
-
-        quitButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
-            }
+        this.quitButton.onClick((event, actor) -> {
+            Gdx.app.exit();
+            return null;
         });
 
     }
 
-    @Override
-    public void show() {
-        super.show();
-        Gdx.input.setInputProcessor(stage);
-    }
 
     @Override
     public void render(float delta) {

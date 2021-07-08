@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class MyScreen implements Screen {
 
-
     Game game;
     Batch batch;
     Stage stage;
@@ -29,12 +28,16 @@ public class MyScreen implements Screen {
      * Mandatory to clear screen after each refresh.
      */
     void clearScreen() {
-        Gdx.gl.glClearColor( 0, 0, 0, 1 );
+        Gdx.gl.glClearColor( 0.15f, 0.15f, 0.15f, 1 );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
     }
 
 
-    @Override public void show() {}
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+    }
+
     @Override public void render(float delta) {}
     @Override public void resize(int width, int height) {}
     @Override public void pause() {}
