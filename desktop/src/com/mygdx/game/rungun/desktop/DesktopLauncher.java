@@ -7,9 +7,9 @@ import com.mygdx.game.rungun.MyGdxGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "RunGun";
-		config.width = 1920;
-		config.height = 1080;
+		config.title = "Run&Gun";
+		config.width = 1024;
+		config.height = 768;
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }

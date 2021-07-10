@@ -10,6 +10,7 @@ public class MenuScreen extends MyScreen {
 
     DefaultButton playButton;
     DefaultButton quitButton;
+    BitmapFont font;
 
     public MenuScreen(final Game game) {
         super(game);
@@ -28,6 +29,10 @@ public class MenuScreen extends MyScreen {
             return null;
         });
 
+        font = new BitmapFont();
+        font.setColor(1,0,0,1);
+        font.getData().setScale(2.5f);
+
     }
 
 
@@ -36,19 +41,9 @@ public class MenuScreen extends MyScreen {
         // clear screen is mandatory
         clearScreen();
         batch.begin();
-        if(playButton.getClickListener().isPressed()) {
-            this.game.setScreen(new GameScreen(game));
-        }
-
-        if(this.quitButton.getClickListener().isPressed()) {
-            dispose();
-        }
 
         this.stage.draw();
 
-        BitmapFont font = new BitmapFont();
-        font.setColor(1,0,0,1);
-        font.getData().setScale(2.5f);
         font.draw(batch, "You can write text like this " , Gdx.graphics.getWidth() / 2.0f - 50  ,Gdx.graphics.getHeight() - 50);
 
         batch.end();

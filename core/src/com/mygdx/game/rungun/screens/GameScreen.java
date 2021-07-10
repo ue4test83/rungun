@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.rungun.components.DefaultButton;
@@ -13,6 +14,7 @@ public class GameScreen extends MyScreen {
     DefaultButton openDialogButton;
     Dialog dialog;
     DefaultButton closeDialogButton;
+    float circleX, circleY;
 
     public GameScreen(Game game) {
         super(game);
@@ -23,6 +25,8 @@ public class GameScreen extends MyScreen {
             return null;
         }));
         this.stage.addActor(openDialogButton);
+       this.circleX = 500;
+       this.circleY = 500;
     }
 
     public void openDialog() {
@@ -49,13 +53,18 @@ public class GameScreen extends MyScreen {
         // clear screen is mandatory
         clearScreen();
         batch.begin();
-        this.stage.draw();
 
+
+        this.stage.draw();
+        // renderer.setAutoShapeType(true);
+        // renderer.begin();
+        // renderer.circle(circleX,circleY,10);
+        // renderer.setAutoShapeType(false);
         BitmapFont font = new BitmapFont();
         font.setColor(1,0,0,1);
-        font.getData().setScale(2.5f);
+        // font.getData().setScale(2.5f);
         font.draw(batch, "the game goes here " , Gdx.graphics.getWidth() / 2.0f - 50  ,Gdx.graphics.getHeight() - 50);
-
+        renderer.end();
         batch.end();
     }
 }

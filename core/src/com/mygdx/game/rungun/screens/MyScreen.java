@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
@@ -17,11 +18,14 @@ public class MyScreen implements Screen {
     Game game;
     Batch batch;
     Stage stage;
+    ShapeRenderer renderer;
 
     MyScreen(Game game) {
         this.game = game;
         this.batch = new SpriteBatch();
         this.stage = new Stage();
+        this.renderer = new ShapeRenderer();
+        this.renderer.setAutoShapeType(true);
     }
 
     /**
