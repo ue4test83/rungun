@@ -7,13 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Super class for screens.
  * You should not add anything here, or ask me beforehand.
  */
-public class MyScreen implements Screen {
+public abstract class MyScreen implements Screen {
 
     Game game;
     Batch batch;
@@ -35,6 +36,17 @@ public class MyScreen implements Screen {
         Gdx.gl.glClearColor( 0.15f, 0.15f, 0.15f, 1 );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
     }
+
+
+
+    public float horizontallyCentered(Actor actor){
+        return (Gdx.graphics.getWidth() / 2.0f) - (actor.getWidth() / 2.0f);
+    }
+
+    public float verticallyCentered(Actor actor){
+        return Gdx.graphics.getHeight() / 2.0f - (actor.getHeight() / 2.0f);
+    }
+
 
 
     @Override

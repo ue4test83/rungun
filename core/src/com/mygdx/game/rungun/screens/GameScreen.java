@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.rungun.components.DefaultButton;
@@ -32,7 +31,7 @@ public class GameScreen extends MyScreen {
     public void openDialog() {
         this.dialog = new Dialog("Menu", new Skin(Gdx.files.internal("ui/uiskin.json")));
         this.dialog.setVisible(true);
-        this.dialog.setPosition(500,500);
+        this.dialog.setPosition(horizontallyCentered(dialog), verticallyCentered(dialog));
         this.dialog.setWidth(200);
         this.dialog.setHeight(500);
         this.dialog.text("This is a dialog");
