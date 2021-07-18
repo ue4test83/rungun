@@ -3,9 +3,9 @@ package com.mygdx.game.rungun.components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.rungun.constants.Constants;
 
 import java.util.function.BiFunction;
 
@@ -13,10 +13,9 @@ public class DefaultButton extends TextButton {
 
     private final int DEFAULT_WIDTH = 250;
     private final int DEFAULT_HEIGHT = 50;
-    private static Skin skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
 
     public DefaultButton(String text, Color backgroundColor) {
-        super(text, skin);
+        super(text, Constants.skin);
         this.setDisabled(false);
         this.setHeight(DEFAULT_HEIGHT);
         this.setWidth(DEFAULT_WIDTH);

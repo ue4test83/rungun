@@ -5,14 +5,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.rungun.components.DefaultButton;
+import com.mygdx.game.rungun.constants.Constants;
 
 public class GameScreen extends MyScreen {
 
     DefaultButton openDialogButton;
     Dialog dialog;
     DefaultButton closeDialogButton;
+    TextField points;
     float circleX, circleY;
 
     public GameScreen(Game game) {
@@ -26,21 +28,26 @@ public class GameScreen extends MyScreen {
         this.stage.addActor(openDialogButton);
        this.circleX = 500;
        this.circleY = 500;
+       this.points = new TextField("name", Constants.skin);
+       this.stage.addActor(points);
     }
 
     public void openDialog() {
-        this.dialog = new Dialog("Menu", new Skin(Gdx.files.internal("ui/uiskin.json")));
+        this.dialog = new Dialog("Menu", Constants.skin);
         this.dialog.setVisible(true);
-        this.dialog.setPosition(horizontallyCentered(dialog), verticallyCentered(dialog));
-        this.dialog.setWidth(200);
+        this.dialog.setWidth(250);
         this.dialog.setHeight(500);
-        this.dialog.text("This is a dialog");
+        this.dialog.setPosition(horizontallyCentered(dialog), verticallyCentered(dialog));
+        this.dialog.getContentTable().setOrigin(50);
+        this.dialog.add("This is a dialog\n");
+        this.dialog.add("Points\n");
+        this.dialog.add(points);
         this.closeDialogButton = new DefaultButton("Close", Color.GRAY);
         this.closeDialogButton.onClick((changeEvent, actor) -> {
             this.dialog.setVisible(false);
             return null;
         });
-        this.dialog.button(closeDialogButton);
+        this.dialog.add(closeDialogButton);
         this.stage.addActor(dialog);
     }
 
