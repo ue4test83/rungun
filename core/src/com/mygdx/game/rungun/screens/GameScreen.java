@@ -4,9 +4,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.rungun.components.DefaultButton;
+import com.mygdx.game.rungun.map.Map;
 import com.mygdx.game.rungun.constants.Constants;
 
 public class GameScreen extends MyScreen {
@@ -16,6 +18,8 @@ public class GameScreen extends MyScreen {
     DefaultButton closeDialogButton;
     TextField points;
     float circleX, circleY;
+    DefaultButton homeButton;
+    Map map;
 
     public GameScreen(Game game) {
         super(game);
@@ -30,6 +34,15 @@ public class GameScreen extends MyScreen {
        this.circleY = 500;
        this.points = new TextField("name", Constants.skin);
        this.stage.addActor(points);
+        this.homeButton = new DefaultButton("Home", Color.NAVY );
+        this.homeButton.setPosition(100,30);
+        this.stage.addActor(homeButton);
+        this.homeButton.onClick((event, actor) -> {
+            game.setScreen(new MenuScreen(game));
+            return null;
+        });
+        this.map = new Map();
+
     }
 
     public void openDialog() {
@@ -59,17 +72,19 @@ public class GameScreen extends MyScreen {
         // clear screen is mandatory
         clearScreen();
         batch.begin();
+        //BitmapFont font = new BitmapFont();
+        //font.setColor(1,0,0,1);
+//
+        //font.draw(batch, "the game goes here " , Gdx.graphics.getWidth() / 2.0f - 50  ,Gdx.graphics.getHeight() - 50);
 
 
         this.stage.draw();
-        // renderer.setAutoShapeType(true);
-        // renderer.begin();
-        // renderer.circle(circleX,circleY,10);
-        // renderer.setAutoShapeType(false);
-        BitmapFont font = new BitmapFont();
-        font.setColor(1,0,0,1);
+        renderer.setAutoShapeType(true);
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.circle(Gdx.input.getX(0),Gdx.graphics.getHeight()- Gdx.input.getY(0),10);
+        renderer.setAutoShapeType(false);
         // font.getData().setScale(2.5f);
-        font.draw(batch, "the game goes here " , Gdx.graphics.getWidth() / 2.0f - 50  ,Gdx.graphics.getHeight() - 50);
+        this.map.draw(renderer, stage);
         renderer.end();
         batch.end();
     }
