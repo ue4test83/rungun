@@ -40,21 +40,6 @@ public class Map {
         return new MapCell(CellKind.TOWER_BASE);
     }
 
-    public void drawHiddenButton(Group group, Stage stage) {
-        for (int i = 0; i < SIZE; i++) {
-            List<MapCell> col = map.get(i);
-            for (int j = 0; j < SIZE; j++) {
-                MapCell mapCell = col.get(j);
-                if(mapCell.getCellKind() == CellKind.TOWER_BASE) {
-                    TextButton tb = mapCell.getHiddenButton();
-                    tb.setX(i * 51 + OFFSET_X);
-                    tb.setY(j * 51 + OFFSET_Y);
-                    group.addActor(tb);
-                }
-            }
-        }
-        stage.draw();
-    }
     public void drawTiles(Batch batch) {
         for (int i = 0; i < SIZE; i++) {
             List<MapCell> col = map.get(i);

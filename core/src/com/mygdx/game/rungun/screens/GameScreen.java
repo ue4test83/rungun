@@ -26,15 +26,10 @@ public class GameScreen extends MyScreen {
     Map map;
     float speed;
     boolean isPaused;
-    Group bg, fg;
     Image pauseImg = new Image(load100By100("pause.png"));
 
     public GameScreen(Game game) {
         super(game);
-        this.bg = new Group();
-        this.fg = new Group();
-        stage.addActor(bg);
-        stage.addActor(fg);
         createMenu();
         createHomeButton(game);
         this.map = new Map();
@@ -51,7 +46,7 @@ public class GameScreen extends MyScreen {
             game.setScreen(new MenuScreen(game));
             return null;
         });
-        bg.addActor(homeButton);
+        stage.addActor(homeButton);
     }
 
     private void createMenu() {
@@ -61,7 +56,7 @@ public class GameScreen extends MyScreen {
             pauseGame();
             return null;
         }));
-        bg.addActor(menu);
+        stage.addActor(menu);
     }
 
     private void pauseGame() {
@@ -75,6 +70,7 @@ public class GameScreen extends MyScreen {
         this.isPaused = false;
         this.speed = 0.1f;
         showPauseImage(false);
+        this.dialog.setVisible(false);
     }
 
     public void openDialog() {
@@ -87,20 +83,18 @@ public class GameScreen extends MyScreen {
         closeDialogButton.setVisible(true);
         closeDialogButton.setPosition(horizontallyCentered(dialog), verticallyCentered(dialog));
         closeDialogButton.onClick((changeEvent, actor) -> {
-            this.fg.removeActor(dialog);
-            this.stage.addActor(fg);
             resumeGame();
             return null;
         });
-        this.fg.addActor(dialog);
         this.dialog.add(closeDialogButton);
+        this.stage.addActor(dialog);
     }
 
     private void showPauseImage(boolean visible) {
         pauseImg.setX(Gdx.graphics.getWidth() / 2.0f - 50);
         pauseImg.setY(Gdx.graphics.getHeight() - 250);
         pauseImg.setVisible(visible);
-        fg.addActor(pauseImg);
+        stage.addActor(pauseImg);
     }
 
 
@@ -111,27 +105,15 @@ public class GameScreen extends MyScreen {
         batch.begin();
 
         // draw map
-        this.map.drawHiddenButton(bg, stage);
         this.map.drawTiles(batch);
 
-
         // draw enemies
-        for(Enemy e : enemies) {
+        for (Enemy e : enemies) {
             e.move(Direction.EAST, speed);
             e.draw(batch, delta, isPaused);
         }
 
-        // pause
-        //if(this.dialog != null && this.dialog.isVisible()) {
-        //    this.fg.addActor(dialog);
-        //}
-
-        // draw buttons
-        if(isPaused) {
-            this.fg.draw(batch, 100);
-        } else {
-            this.fg.draw(batch, 100);
-        }
+        this.stage.draw();
 
         // stop rendering
         batch.end();
